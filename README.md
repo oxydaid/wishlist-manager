@@ -45,6 +45,10 @@ Aplikasi web pribadi yang sederhana, cepat, dan mobile-first untuk mencatat daft
    * Preferensi tema disimpan otomatis di `localStorage`.
    * Skrip inisialisasi awal mencegah kedipan tema (FOUC).
 
+8. **Progressive Web App (PWA & Offline Ready)**
+   * Dapat di-install langsung ke layar utama smartphone (Android/iOS) atau desktop via browser.
+   * Bekerja 100% offline berkat native Service Worker cache dan persistensi localStorage.
+
 ---
 
 ## Tech Stack
