@@ -1,6 +1,12 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { sanitizeAppData, validateImportJson } from './storage.js'
+import {
+  sanitizeAppData,
+  validateImportJson,
+  isSessionUnlocked,
+  setSessionUnlocked,
+  isStandalonePwa,
+} from './storage.js'
 
 test('sanitizeAppData falls back cleanly when given corrupted or invalid inputs', () => {
   const result = sanitizeAppData(null)
@@ -54,3 +60,15 @@ test('validateImportJson rejects corrupted or invalid JSON format', () => {
   const res2 = validateImportJson(missingItems)
   assert.equal(res2.success, false)
 })
+
+test('session unlock helpers work safely in non-browser/node environment', () => {
+  // In node.js (no window), isStandalonePwa should return false safely
+  assert.equal(isStandalonePwa(), false)
+  assert.equal(isSessionUnlocked(), false)
+  // setSessionUnlocked should not throw
+  assert.doesNotThrow(() => {
+    setSessionUnlocked(true)
+    setSessionUnlocked(false)
+  })
+})
+

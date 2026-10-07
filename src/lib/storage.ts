@@ -179,3 +179,40 @@ export function exportAppDataToFile(data: AppData): void {
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
+
+export const SESSION_UNLOCKED_KEY = 'wishlist-manager:session-unlocked'
+
+export function isStandalonePwa(): boolean {
+  if (typeof window === 'undefined') return false
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    Boolean((window.navigator as unknown as { standalone?: boolean }).standalone)
+  )
+}
+
+export function isSessionUnlocked(): boolean {
+  if (typeof window === 'undefined') return false
+  // For PWA: never trust persistent session unlock across app restarts/closes
+  if (isStandalonePwa()) return false
+  try {
+    return window.sessionStorage?.getItem(SESSION_UNLOCKED_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+export function setSessionUnlocked(unlocked: boolean): void {
+  if (typeof window === 'undefined') return
+  try {
+    if (unlocked) {
+      if (!isStandalonePwa()) {
+        window.sessionStorage?.setItem(SESSION_UNLOCKED_KEY, 'true')
+      }
+    } else {
+      window.sessionStorage?.removeItem(SESSION_UNLOCKED_KEY)
+    }
+  } catch {
+    // ignore
+  }
+}
+

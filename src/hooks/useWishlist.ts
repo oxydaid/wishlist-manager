@@ -12,6 +12,9 @@ import {
   hashPin,
   exportAppDataToFile,
   validateImportJson,
+  isSessionUnlocked,
+  setSessionUnlocked,
+  isStandalonePwa,
 } from '@/lib/storage'
 import { calculateFinancials } from '@/lib/calculations'
 
@@ -26,8 +29,29 @@ export function useWishlist() {
   const [data, setData] = useState<AppData>(() => loadAppData())
   const [isLocked, setIsLocked] = useState<boolean>(() => {
     const initial = loadAppData()
-    return Boolean(initial.pinHash && initial.pinHash.length > 0)
+    const hasPin = Boolean(initial.pinHash && initial.pinHash.length > 0)
+    if (!hasPin) return false
+    // In browser: check if already unlocked in current session (survives refresh)
+    // In PWA: always lock on fresh open
+    return !isSessionUnlocked()
   })
+
+  // For PWA: re-lock when app is closed/hidden so entering again prompts for PIN
+  useEffect(() => {
+    if (!data.pinHash) return
+
+    const handlePageHide = () => {
+      if (isStandalonePwa()) {
+        setIsLocked(true)
+        setSessionUnlocked(false)
+      }
+    }
+
+    window.addEventListener('pagehide', handlePageHide)
+    return () => {
+      window.removeEventListener('pagehide', handlePageHide)
+    }
+  }, [data.pinHash])
 
   const [filter, setFilter] = useState<FilterType>('all')
   const [sort, setSort] = useState<SortType>('newest')
@@ -179,6 +203,7 @@ export function useWishlist() {
       ...prev,
       pinHash: hash,
     }))
+    setSessionUnlocked(true)
     setIsLocked(false)
   }, [])
 
@@ -187,18 +212,21 @@ export function useWishlist() {
       ...prev,
       pinHash: null,
     }))
+    setSessionUnlocked(false)
     setIsLocked(false)
   }, [])
 
   const unlock = useCallback(
     async (enteredPin: string): Promise<boolean> => {
       if (!data.pinHash) {
+        setSessionUnlocked(true)
         setIsLocked(false)
         return true
       }
       try {
         const hash = await hashPin(enteredPin)
         if (hash === data.pinHash) {
+          setSessionUnlocked(true)
           setIsLocked(false)
           return true
         }
@@ -212,6 +240,7 @@ export function useWishlist() {
 
   const lock = useCallback(() => {
     if (data.pinHash) {
+      setSessionUnlocked(false)
       setIsLocked(true)
     }
   }, [data.pinHash])
@@ -227,8 +256,10 @@ export function useWishlist() {
     }
     setData(result.data)
     if (result.data.pinHash) {
+      setSessionUnlocked(false)
       setIsLocked(true)
     } else {
+      setSessionUnlocked(false)
       setIsLocked(false)
     }
   }, [])
