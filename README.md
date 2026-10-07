@@ -37,7 +37,13 @@ Aplikasi web pribadi yang sederhana, cepat, dan mobile-first untuk mencatat daft
 6. **Desain Mobile-First & Aksesibel**
    * Responsive layout (smartphone hingga desktop).
    * Floating Add Button di mobile untuk kemudahan navigasi satu tangan.
+   * Margin horizontal dialog yang nyaman di layar ponsel (tidak terpotong atau menempel ke tepi).
    * Semantic HTML dan dukungan keyboard navigation.
+
+7. **Dukungan Tema Gelap & Terang (Dark / Light Mode)**
+   * Tombol beralih tema langsung di header aplikasi.
+   * Preferensi tema disimpan otomatis di `localStorage`.
+   * Skrip inisialisasi awal mencegah kedipan tema (FOUC).
 
 ---
 

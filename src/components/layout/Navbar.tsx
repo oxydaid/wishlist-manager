@@ -1,11 +1,13 @@
 import { Button } from '@/components/ui/button'
-import { Sparkles, Lock, Shield, Database, Plus } from 'lucide-react'
+import { Sparkles, Lock, Shield, Database, Plus, Sun, Moon } from 'lucide-react'
 
 interface NavbarProps {
   hasPin: boolean
   onOpenPinDialog: () => void
   onOpenBackupDialog: () => void
   onAddNew: () => void
+  theme: 'dark' | 'light'
+  onToggleTheme: () => void
 }
 
 export function Navbar({
@@ -13,6 +15,8 @@ export function Navbar({
   onOpenPinDialog,
   onOpenBackupDialog,
   onAddNew,
+  theme,
+  onToggleTheme,
 }: NavbarProps) {
   return (
     <header className="sticky top-0 z-30 w-full border-b border-border/80 bg-background/80 backdrop-blur-md">
@@ -33,13 +37,30 @@ export function Navbar({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Dark / Light Toggle */}
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={onToggleTheme}
+            className="h-9 w-9 text-muted-foreground hover:text-foreground cursor-pointer"
+            title={theme === 'dark' ? 'Ganti ke Mode Terang' : 'Ganti ke Mode Gelap'}
+            aria-label="Ganti mode gelap atau terang"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-700" />
+            )}
+          </Button>
+
           <Button
             type="button"
             variant="ghost"
             size="sm"
             onClick={onOpenBackupDialog}
-            className="text-xs h-9 px-2 sm:px-3 text-muted-foreground hover:text-foreground"
+            className="text-xs h-9 px-2 sm:px-3 text-muted-foreground hover:text-foreground cursor-pointer"
             title="Backup & Restore Data JSON"
           >
             <Database className="w-4 h-4 sm:mr-1.5" />
@@ -51,7 +72,7 @@ export function Navbar({
             variant="ghost"
             size="sm"
             onClick={onOpenPinDialog}
-            className={`text-xs h-9 px-2 sm:px-3 ${
+            className={`text-xs h-9 px-2 sm:px-3 cursor-pointer ${
               hasPin
                 ? 'text-primary hover:text-primary/90 hover:bg-primary/10'
                 : 'text-muted-foreground hover:text-foreground'

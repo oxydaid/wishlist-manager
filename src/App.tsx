@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useWishlist } from '@/hooks/useWishlist'
+import { useTheme } from '@/hooks/useTheme'
 import { Navbar } from '@/components/layout/Navbar'
 import { FinancialSummary } from '@/components/financial/FinancialSummary'
 import { WishlistToolbar } from '@/components/wishlist/WishlistToolbar'
@@ -14,6 +15,7 @@ import type { WishlistItem } from '@/types/wishlist'
 import { Plus } from 'lucide-react'
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme()
   const {
     items,
     savings,
@@ -92,6 +94,8 @@ export default function App() {
         onOpenPinDialog={() => setPinDialogOpen(true)}
         onOpenBackupDialog={() => setBackupDialogOpen(true)}
         onAddNew={handleAddNew}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-5 space-y-6 pb-24 sm:pb-12">

@@ -47,19 +47,19 @@ export function FinancialSummary({
         role="status"
         className={`p-4 rounded-xl border transition-colors flex items-center justify-between gap-3 ${
           isAllCompleted
-            ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+            ? 'bg-emerald-500/10 dark:bg-emerald-950/40 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
             : isFundSufficient
-              ? 'bg-emerald-950/25 border-emerald-500/20 text-emerald-300'
-              : 'bg-amber-950/30 border-amber-500/30 text-amber-300'
+              ? 'bg-emerald-500/10 dark:bg-emerald-950/25 border-emerald-500/20 text-emerald-800 dark:text-emerald-300'
+              : 'bg-amber-500/10 dark:bg-amber-950/30 border-amber-500/30 text-amber-800 dark:text-amber-300'
         }`}
       >
         <div className="flex items-center gap-3">
           {isAllCompleted ? (
-            <Sparkles className="w-5 h-5 shrink-0 text-emerald-400" />
+            <Sparkles className="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
           ) : isFundSufficient ? (
-            <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-400" />
+            <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
           ) : (
-            <AlertCircle className="w-5 h-5 shrink-0 text-amber-400" />
+            <AlertCircle className="w-5 h-5 shrink-0 text-amber-600 dark:text-amber-400" />
           )}
 
           <div>
@@ -147,9 +147,9 @@ export function FinancialSummary({
           <CardContent className="p-4 space-y-1">
             <div className="flex items-center justify-between text-muted-foreground">
               <span className="text-xs font-medium">Sudah Terpenuhi</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-400/80" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <div className="text-lg sm:text-xl font-bold text-emerald-400 tracking-tight truncate">
+            <div className="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400 tracking-tight truncate">
               {formatIDR(completedPrice)}
             </div>
             <p className="text-[11px] text-muted-foreground truncate">
@@ -163,9 +163,9 @@ export function FinancialSummary({
           <CardContent className="p-4 space-y-1">
             <div className="flex items-center justify-between text-muted-foreground">
               <span className="text-xs font-medium">Masih Dibutuhkan</span>
-              <Clock className="w-4 h-4 text-amber-400/80" />
+              <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
             </div>
-            <div className="text-lg sm:text-xl font-bold text-amber-400 tracking-tight truncate">
+            <div className="text-lg sm:text-xl font-bold text-amber-600 dark:text-amber-400 tracking-tight truncate">
               {formatIDR(remainingPrice)}
             </div>
             <p className="text-[11px] text-muted-foreground truncate">
@@ -198,7 +198,7 @@ export function FinancialSummary({
                   Kurang {formatIDR(shortage)}
                 </span>
               ) : (
-                <span className="text-[10px] text-emerald-400 font-medium">
+                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
                   Cukup
                 </span>
               )}

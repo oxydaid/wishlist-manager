@@ -12,8 +12,8 @@ export function WishlistEmptyState({
 }: WishlistEmptyStateProps) {
   if (type === 'all-completed') {
     return (
-      <div className="text-center py-12 px-4 rounded-xl border border-dashed border-emerald-500/30 bg-emerald-950/10">
-        <div className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+      <div className="text-center py-12 px-4 rounded-xl border border-dashed border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/20">
+        <div className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3">
           <Sparkles className="w-6 h-6" />
         </div>
         <h3 className="text-base font-bold text-foreground">

@@ -7,6 +7,18 @@
     <meta name="description" content="Aplikasi pribadi untuk mencatat wishlist sekaligus menghitung kebutuhan finansial untuk memenuhinya." />
     <meta name="theme-color" content="#121212" />
     <title>Wishlist Manager</title>
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('wishlist-manager:theme');
+          if (t === 'light' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-background text-foreground antialiased min-h-screen">
     <div id="root"></div>

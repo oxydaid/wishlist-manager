@@ -60,7 +60,7 @@ export function WishlistItemCard({
               </span>
 
               {item.completed && (
-                <span className="text-[10px] bg-emerald-500/15 text-emerald-400 font-medium px-1.5 py-0.2 rounded">
+                <span className="text-[10px] bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium px-1.5 py-0.2 rounded">
                   Sudah Terbeli
                 </span>
               )}

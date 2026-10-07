@@ -12,7 +12,12 @@
 
 ## 2. Color System (Tailwind CSS v4 & CSS Variables)
 
-Aplikasi menggunakan tema gelap modern dengan aksen hijau emerald untuk kesan finansial yang positif dan tenang:
+Aplikasi mendukung tema ganda (Mode Terang & Mode Gelap) yang dapat diaktifkan melalui toggle di bilah navigasi dan tersimpan di `localStorage` (`wishlist-manager:theme`):
+
+* **Mode Terang**: Latar belakang putih/abu-abu bersih dengan aksen emerald pekat untuk keterbacaan tinggi di siang hari.
+* **Mode Gelap**: Latar belakang abu-abu pekat/hitam dengan aksen mint emerald neon untuk kenyamanan visual di malam hari.
+
+Dikonfigurasi melalui `src/app.css` menggunakan CSS variables dan custom variant `@custom-variant dark` tanpa file konfigurasi `tailwind.config.js`.
 
 | Semantic Token | Nilai OKLCH / CSS Var | Deskripsi |
 | :--- | :--- | :--- |
